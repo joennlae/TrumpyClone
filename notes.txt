@@ -1,0 +1,6 @@
+some tips
+plugin admob:
+ohne root installen und abändern in classes files der import von:
+#include "pluginadmob/PluginAdMob.h" von Gross im ordner auf klein
+https://github.com/sdkbox/sdkbox-sample-admob/blob/master/cpp/proj.android/jni/pluginadmob/PluginAdMob.h
+http://docs.sdkbox.com/en/plugins/admob/v3-js/
