@@ -34,31 +34,31 @@ var menuLayer = cc.Layer.extend({
         sdkbox.PluginAdMob.cache("topbanner");
         sdkbox.PluginAdMob.show("bottombanner");
         //
-		this.startLabel = new cc.LabelTTF("Play", "res/Quicksand-Light.ttf", this.winsize.height/4);
+		this.startLabel = new cc.LabelTTF("Play", res.font, this.winsize.height/4);
         this.startLabel.setColor(cc.color(0,0,0));//black color
         
-		this.startLabelP = new cc.LabelTTF("Play", "res/Quicksand-Light.ttf", this.winsize.height/4);
+		this.startLabelP = new cc.LabelTTF("Play", res.font, this.winsize.height/4);
         this.startLabelP.setColor(cc.color(0,0,150));//blue color
         
-        this.betaLabel = new cc.LabelTTF("Beta", "res/Quicksand-Light.ttf", this.winsize.height/10);
+        this.betaLabel = new cc.LabelTTF("Beta", res.font, this.winsize.height/10);
         this.betaLabel.setColor(cc.color(0,0,0));//black color
         
-        this.betaLabelP = new cc.LabelTTF("Beta", "res/Quicksand-Light.ttf", this.winsize.height/10);
+        this.betaLabelP = new cc.LabelTTF("Beta", res.font, this.winsize.height/10);
         this.betaLabelP.setColor(cc.color(0,0,150));//blue color
         
-        this.settingsLabel = new cc.LabelTTF("Settings", "res/Quicksand-Light.ttf", this.winsize.height/20);
+        this.settingsLabel = new cc.LabelTTF("Settings", res.font, this.winsize.height/20);
         this.settingsLabel.setColor(cc.color(0,0,0));//black color
         
-        this.settingsLabelP = new cc.LabelTTF("Settings", "res/Quicksand-Light.ttf", this.winsize.height/20);
+        this.settingsLabelP = new cc.LabelTTF("Settings", res.font, this.winsize.height/20);
         this.settingsLabelP.setColor(cc.color(0,0,150));//blue color
         
-        this.aboutLabel = new cc.LabelTTF("About", "res/Quicksand-Light.ttf", this.winsize.height/20);
+        this.aboutLabel = new cc.LabelTTF("About", res.font, this.winsize.height/20);
         this.aboutLabel.setColor(cc.color(0,0,0));//black color
-        this.aboutLabelP = new cc.LabelTTF("About", "res/Quicksand-Light.ttf", this.winsize.height/20);
+        this.aboutLabelP = new cc.LabelTTF("About", res.font, this.winsize.height/20);
         this.aboutLabelP.setColor(cc.color(0,0,150));//blue color
         
-        //this.messageLabel = new cc.LabelTTF(startUpMessages[Math.floor(Math.random()*(startUpMessages.length))], "res/Quicksand-Light.ttf", this.winsize.height/40);
-        this.messageLabel = new cc.LabelTTF(startUpMessages[Math.floor(Math.random()*(startUpMessages.length))], "res/Quicksand-Light.ttf",this.winsize.height/50, cc.size(this.winsize.width-40,this.winsize.height/3) ,cc.TEXT_ALIGNMENT_CENTER,cc.VERTICAL_TEXT_ALIGNMENT_TOP);
+        //this.messageLabel = new cc.LabelTTF(startUpMessages[Math.floor(Math.random()*(startUpMessages.length))], res.font, this.winsize.height/40);
+        this.messageLabel = new cc.LabelTTF(startUpMessages[Math.floor(Math.random()*(startUpMessages.length))], res.font,this.winsize.height/50, cc.size(this.winsize.width-40,this.winsize.height/3) ,cc.TEXT_ALIGNMENT_CENTER,cc.VERTICAL_TEXT_ALIGNMENT_TOP);
         this.messageLabel.setColor(cc.color(0,0,0));
         this.messageLabel.setAnchorPoint(0.5,0.5);
         this.messageLabel.setPosition(cc.p(this.winsize.width/2,this.winsize.height/3*2.2));
@@ -66,7 +66,7 @@ var menuLayer = cc.Layer.extend({
         this.addChild(this.messageLabel,5);
         this.messageLabel.runAction(new cc.ScaleTo(1.5, 1));
 
-        this.messageLabel2 = new cc.LabelTTF(startUpMessagesold[Math.floor(Math.random()*(startUpMessages.length))], "res/Quicksand-Light.ttf", this.winsize.height/25);
+        this.messageLabel2 = new cc.LabelTTF(startUpMessagesold[Math.floor(Math.random()*(startUpMessages.length))], res.font, this.winsize.height/25);
         this.messageLabel2.setColor(cc.color(150,0,0));
         this.messageLabel2.setPosition(cc.p(0,this.winsize.height/3*2));
         this.messageLabel2.setAnchorPoint(0.5,0.5);

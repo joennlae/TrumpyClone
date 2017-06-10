@@ -16,31 +16,31 @@ var gameOverLayer = cc.LayerColor.extend({
             sdkbox.PluginAdMob.show("gameover");
         }
 
-        this.levelCompleteLabel = new cc.LabelTTF("Level Completed", "res/Quicksand-Light.ttf", winsize.height / 18);
+        this.levelCompleteLabel = new cc.LabelTTF("Level Completed", res.font, winsize.height / 18);
         this.levelCompleteLabel.setPosition(cc.p(winsize.width / 2, winsize.height / 6 * 5));
         this.levelCompleteLabel.setColor(cc.color(0, 150, 0));
         this.levelCompleteLabel.visible = false;
         this.addChild(this.levelCompleteLabel);
 
-        this.againLabel = new cc.LabelTTF("You did it again!", "res/Quicksand-Light.ttf", winsize.height / 18);
+        this.againLabel = new cc.LabelTTF("You did it again!", res.font, winsize.height / 18);
         this.againLabel.setPosition(cc.p(winsize.width / 2, winsize.height / 6 * 5));
         this.againLabel.setColor(cc.color(0, 150, 0));
         this.againLabel.visible = false;
         this.addChild(this.againLabel);
 
-        this.highscoreLabel = new cc.LabelTTF("New Highscore!", "res/Quicksand-Light.ttf", winsize.height / 18);
+        this.highscoreLabel = new cc.LabelTTF("New Highscore!", res.font, winsize.height / 18);
         this.highscoreLabel.setPosition(cc.p(winsize.width / 2, winsize.height / 6 * 5));
         this.highscoreLabel.setColor(cc.color(0, 150, 0));
         this.highscoreLabel.visible = false;
         this.addChild(this.highscoreLabel);
 
-        this.newrankLabel = new cc.LabelTTF("New Rank!", "res/Quicksand-Light.ttf", winsize.height / 18);
+        this.newrankLabel = new cc.LabelTTF("New Rank!", res.font, winsize.height / 18);
         this.newrankLabel.setPosition(cc.p(winsize.width / 2, winsize.height / 6 * 5));
         this.newrankLabel.setColor(cc.color(0, 150, 0));
         this.newrankLabel.visible = false;
         this.addChild(this.newrankLabel);
 
-        this.movesoverLabel = new cc.LabelTTF("Out of Moves", "res/Quicksand-Light.ttf", winsize.height / 18);
+        this.movesoverLabel = new cc.LabelTTF("Out of Moves", res.font, winsize.height / 18);
         this.movesoverLabel.setPosition(cc.p(winsize.width / 2, winsize.height / 6 * 5));
         this.movesoverLabel.setColor(cc.color(150, 0, 0));
         this.movesoverLabel.visible = false;
@@ -114,16 +114,16 @@ var gameOverLayer = cc.LayerColor.extend({
         this.addChild(dn1);
         dn1.drawRect(cc.p(this.winsize.width / 2 - 1, this.winsize.height / 6 * 4), cc.p(this.winsize.width / 2 + 1, this.winsize.height / 6 * 4 - this.winsize.height / 20), cc.color(0, 0, 0, 255), 2, cc.color(0, 0, 0, 255));
         //some labels 3/26 + 2/15 ~= 0.25
-        var pointsLabelText = new cc.LabelTTF("Points", "res/Quicksand-Light.ttf", this.winsize.height / 30);
+        var pointsLabelText = new cc.LabelTTF("Points", res.font, this.winsize.height / 30);
         pointsLabelText.setColor(cc.color(0, 0, 0));
         pointsLabelText.setAnchorPoint(1, 0);
         pointsLabelText.setPosition(this.winsize.width / 2 - 20, this.winsize.height / 6 * 4);
-        var movesLabelText = new cc.LabelTTF("Moves", "res/Quicksand-Light.ttf", this.winsize.height / 30);
+        var movesLabelText = new cc.LabelTTF("Moves", res.font, this.winsize.height / 30);
         movesLabelText.setColor(cc.color(0, 0, 0));
         movesLabelText.setAnchorPoint(0, 0);
         movesLabelText.setPosition(this.winsize.width / 2 + 20, this.winsize.height / 6 * 4);
 
-        this.movesLabelValue = new cc.LabelTTF(0, "res/Quicksand-Light.ttf", this.winsize.height / 20);
+        this.movesLabelValue = new cc.LabelTTF(0, res.font, this.winsize.height / 20);
         this.movesLabelValue.setColor(cc.color(0, 0, 0));
         this.movesLabelValue.setAnchorPoint(0, 0);
         this.movesLabelValue.setPosition(this.winsize.width / 2 + 20, this.winsize.height / 6 * 4 - this.winsize.height / 20);
@@ -134,7 +134,7 @@ var gameOverLayer = cc.LayerColor.extend({
             this.movesLabelValue.setString(levelsAdditional[gameLayer_copy.levelNum][10] - gameLayer_copy.movesLeft);
         }*/
 
-        this.pointsLabelValue = new cc.LabelTTF(gameLayer_copy.points, "res/Quicksand-Light.ttf", this.winsize.height / 20);
+        this.pointsLabelValue = new cc.LabelTTF(gameLayer_copy.points, res.font, this.winsize.height / 20);
         this.pointsLabelValue.setColor(cc.color(0, 0, 0));
         this.pointsLabelValue.setAnchorPoint(1, 0);
         this.pointsLabelValue.setPosition(this.winsize.width / 2 - 20, this.winsize.height / 6 * 4 - this.winsize.height / 20);
@@ -154,7 +154,7 @@ var gameOverLayer = cc.LayerColor.extend({
         checkmark1.setAnchorPoint(0, 1);
         checkmark1.setPosition(this.winsize.width / 20, this.winsize.height / 2 + 1 * 256 * scaleFactor);
         this.addChild(checkmark1, 1, 1001);
-        var goalLabel1 = new cc.LabelTTF(levelsAdditional[gameLayer_copy.levelNum][6], "res/Quicksand-Light.ttf", this.winsize.height / 30);
+        var goalLabel1 = new cc.LabelTTF(levelsAdditional[gameLayer_copy.levelNum][6], res.font, this.winsize.height / 30);
         if (levelsAdditional[gameLayer_copy.levelNum][4] > 0) { //mit chains 
             var sprite = new cc.Sprite.create("res/" + levelsAdditional[gameLayer_copy.levelNum][4] + ".png");
             sprite.setAnchorPoint(0, 0.5);
@@ -180,7 +180,7 @@ var gameOverLayer = cc.LayerColor.extend({
             checkmark2.setAnchorPoint(0, 1);
             checkmark2.setPosition(this.winsize.width / 20, this.winsize.height / 2);
             this.addChild(checkmark2, 1, 1002);
-            var goalLabel2 = new cc.LabelTTF(levelsAdditional[gameLayer_copy.levelNum][9], "res/Quicksand-Light.ttf", this.winsize.height / 30);
+            var goalLabel2 = new cc.LabelTTF(levelsAdditional[gameLayer_copy.levelNum][9], res.font, this.winsize.height / 30);
             if (levelsAdditional[gameLayer_copy.levelNum][7] > 0) { //mit chains 
                 var sprite = new cc.Sprite.create("res/" + levelsAdditional[gameLayer_copy.levelNum][7] + ".png");
                 sprite.setAnchorPoint(0, 0.5);
@@ -199,13 +199,13 @@ var gameOverLayer = cc.LayerColor.extend({
 
         //stats
 
-        var statsLabel1 = new cc.LabelTTF("Stats", "res/Quicksand-Light.ttf", this.winsize.height / 20);
+        var statsLabel1 = new cc.LabelTTF("Stats", res.font, this.winsize.height / 20);
         statsLabel1.setColor(cc.color(0, 0, 0));
         statsLabel1.setAnchorPoint(0.5, 0.5);
         statsLabel1.setPosition(this.winsize.width/2, this.winsize.height/8*3);
         this.addChild(statsLabel1);
 
-        var totalLabel1 = new cc.LabelTTF("Total chains: "+ gameLayer_copy.statsArray[0], "res/Quicksand-Light.ttf", this.winsize.height / 30);
+        var totalLabel1 = new cc.LabelTTF("Total chains: "+ gameLayer_copy.statsArray[0], res.font, this.winsize.height / 30);
         totalLabel1.setColor(cc.color(0, 0, 0));
         totalLabel1.setAnchorPoint(0.5, 0.5);
         totalLabel1.setPosition(this.winsize.width/2, this.winsize.height/3);
@@ -217,9 +217,9 @@ var gameOverLayer = cc.LayerColor.extend({
             sprite.attr({ x: (i-1) * (this.winsize.width-100)/3 + 50, y: this.winsize.height/3-1.5*this.winsize.height / 30, scale: gameLayer_copy.sizeOfIcons });
             this.addChild(sprite);
             if(gameLayer_copy.statsArray[i]==0) {
-                var numLabel = new cc.LabelTTF("0", "res/Quicksand-Light.ttf", this.winsize.height / 30);
+                var numLabel = new cc.LabelTTF("0", res.font, this.winsize.height / 30);
             }
-            else var numLabel = new cc.LabelTTF(gameLayer_copy.statsArray[i], "res/Quicksand-Light.ttf", this.winsize.height / 30);
+            else var numLabel = new cc.LabelTTF(gameLayer_copy.statsArray[i], res.font, this.winsize.height / 30);
             numLabel.setColor(cc.color(0, 0, 0));
             numLabel.setAnchorPoint(0.5, 0.5);
             numLabel.setPosition((i-1) * (this.winsize.width-100)/3 + 50+ 2* this.winsize.height / 20, this.winsize.height/3-1.5*this.winsize.height / 30);
@@ -231,9 +231,9 @@ var gameOverLayer = cc.LayerColor.extend({
             sprite.attr({ x: (i-4) * (this.winsize.width-100)/3 + 50, y: this.winsize.height/3-3.5*this.winsize.height / 30, scale: gameLayer_copy.sizeOfIcons });
             this.addChild(sprite);
             if(gameLayer_copy.statsArray[i]==0) {
-                var numLabel = new cc.LabelTTF("0", "res/Quicksand-Light.ttf", this.winsize.height / 30);
+                var numLabel = new cc.LabelTTF("0", res.font, this.winsize.height / 30);
             }
-            else var numLabel = new cc.LabelTTF(gameLayer_copy.statsArray[i], "res/Quicksand-Light.ttf", this.winsize.height / 30);
+            else var numLabel = new cc.LabelTTF(gameLayer_copy.statsArray[i], res.font, this.winsize.height / 30);
             numLabel.setColor(cc.color(0, 0, 0));
             numLabel.setAnchorPoint(0.5, 0.5);
             numLabel.setPosition((i-4) * (this.winsize.width-100)/3 + 50+ 2*this.winsize.height / 20, this.winsize.height/3-3.5*this.winsize.height / 30);

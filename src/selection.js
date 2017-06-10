@@ -37,9 +37,9 @@ var levelSelector = cc.Layer.extend({
         }
         //this.scrollView.jumpToPercentVertical((1/9)*100);
         //back label
-        this.backLabel = new cc.LabelTTF("Back", "res/Quicksand-Light.ttf", this.winsize.height / 20);
+        this.backLabel = new cc.LabelTTF("Back", res.font, this.winsize.height / 20);
         this.backLabel.setColor(cc.color(0, 0, 0));//black color
-        this.backLabelP = new cc.LabelTTF("Back", "res/Quicksand-Light.ttf", this.winsize.height / 20);
+        this.backLabelP = new cc.LabelTTF("Back", res.font, this.winsize.height / 20);
         this.backLabelP.setColor(cc.color(0, 0, 150));
 
         var backItemLabel = new cc.MenuItemSprite(
@@ -50,9 +50,9 @@ var levelSelector = cc.Layer.extend({
         var backMenu = new cc.Menu(backItemLabel);
         backMenu.setPosition(cc.p(25, this.winsize.height - 20));
         this.addChild(backMenu, 5, 2);
-        this.statsLabel = new cc.LabelTTF("Stats", "res/Quicksand-Light.ttf", this.winsize.height / 20);
+        this.statsLabel = new cc.LabelTTF("Stats", res.font, this.winsize.height / 20);
         this.statsLabel.setColor(cc.color(0, 0, 0));//black color
-        this.statsLabelP = new cc.LabelTTF("Stats", "res/Quicksand-Light.ttf", this.winsize.height / 20);
+        this.statsLabelP = new cc.LabelTTF("Stats", res.font, this.winsize.height / 20);
         this.statsLabelP.setColor(cc.color(0, 0, 150));
 
         var statsItemLabel = new cc.MenuItemSprite(
@@ -77,12 +77,12 @@ var levelSelector = cc.Layer.extend({
             //dn.drawRect(cc.p(20, topleftCornerY), cc.p(this.scrollView.getInnerContainerSize().width - 20, bottomRightCornerY), cc.color(0, 0, 0, 0), 2, cc.color(0, 0, 0, 255));
             dn.drawRect(cc.p(this.winsize.width / 6, bottomRightCornerY + 2), cc.p(this.winsize.width / 6 * 5, bottomRightCornerY), cc.color(0, 0, 0, 0), 2, cc.color(0, 0, 0, 255));
             if (JSON.parse(cc.sys.localStorage.getItem(201)) > i) {
-                var levelNum = new cc.LabelTTF(i + 1, "res/Quicksand-Light.ttf", this.winsize.height / 12);
+                var levelNum = new cc.LabelTTF(i + 1, res.font, this.winsize.height / 12);
                 levelNum.setColor(cc.color(50, 50, 50));
                 levelNum.setAnchorPoint(1, 1);
                 levelNum.setPosition(this.winsize.width - 40, topleftCornerY - 20);
                 this.scrollView.addChild(levelNum);
-                var tweet = new cc.LabelTTF(levelTweets[i], "res/Quicksand-Light.ttf", this.winsize.height / 50, cc.size(this.winsize.width / 3 * 2.3, (this.winsize.height - (120)) / (3 * 2)), cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_ALIGNMENT_TOP);
+                var tweet = new cc.LabelTTF(levelTweets[i], res.font, this.winsize.height / 50, cc.size(this.winsize.width / 3 * 2.3, (this.winsize.height - (120)) / (3 * 2)), cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_ALIGNMENT_TOP);
                 tweet.setColor(cc.color(50, 50, 50));
                 tweet.setAnchorPoint(0, 1);//topleft
                 tweet.setPosition(40, topleftCornerY - 20);
@@ -97,7 +97,7 @@ var levelSelector = cc.Layer.extend({
                 checkmark1.setAnchorPoint(0, 0);
                 checkmark1.setPosition(40, bottomRightCornerY + 40 + 256 * scaleFactor);
                 this.scrollView.addChild(checkmark1);
-                var goalLabel1 = new cc.LabelTTF(levelsAdditional[i][6], "res/Quicksand-Light.ttf", this.winsize.height / 40);
+                var goalLabel1 = new cc.LabelTTF(levelsAdditional[i][6], res.font, this.winsize.height / 40);
                 if (levelsAdditional[i][4] > 0) { //mit chains 
                     var sprite = new cc.Sprite.create("res/" + levelsAdditional[i][4] + ".png");
                     sprite.setAnchorPoint(0, 0.5);
@@ -122,7 +122,7 @@ var levelSelector = cc.Layer.extend({
                     checkmark2.setAnchorPoint(0, 0);
                     checkmark2.setPosition(40, bottomRightCornerY + 20);
                     this.scrollView.addChild(checkmark2);
-                    var goalLabel2 = new cc.LabelTTF(levelsAdditional[i][9], "res/Quicksand-Light.ttf", this.winsize.height / 40);
+                    var goalLabel2 = new cc.LabelTTF(levelsAdditional[i][9], res.font, this.winsize.height / 40);
                     if (levelsAdditional[i][7] > 0) { //mit chains 
                         var sprite = new cc.Sprite.create("res/" + levelsAdditional[i][7] + ".png");
                         sprite.setAnchorPoint(0, 0.5);
@@ -138,18 +138,18 @@ var levelSelector = cc.Layer.extend({
                     this.scrollView.addChild(goalLabel2);
                 }
                 if(i<JSON.parse(cc.sys.localStorage.getItem(201))-1){
-                    var rankLabel = new cc.LabelTTF(ranks[this.getRank(i)], "res/Quicksand-Light.ttf", this.winsize.height / 30);
+                    var rankLabel = new cc.LabelTTF(ranks[this.getRank(i)], res.font, this.winsize.height / 30);
                 }
                 else{
-                    var rankLabel = new cc.LabelTTF("NOT finished. SAD!", "res/Quicksand-Light.ttf", this.winsize.height / 30);
+                    var rankLabel = new cc.LabelTTF("NOT finished. SAD!", res.font, this.winsize.height / 30);
                 }
                 rankLabel.setColor(cc.color(150, 0, 0));
                 rankLabel.setAnchorPoint(1, 0.5);
                 rankLabel.setPosition(this.winsize.width - 40, bottomRightCornerY + ((this.winsize.height - (120)) / 6));
                 this.scrollView.addChild(rankLabel);
-                this.startLabel = new cc.LabelTTF("Play", "res/Quicksand-Light.ttf", this.winsize.height / 14);
+                this.startLabel = new cc.LabelTTF("Play", res.font, this.winsize.height / 14);
                 this.startLabel.setColor(cc.color(0, 0, 0));//black color
-                this.startLabelP = new cc.LabelTTF("Play", "res/Quicksand-Light.ttf", this.winsize.height / 14);
+                this.startLabelP = new cc.LabelTTF("Play", res.font, this.winsize.height / 14);
                 this.startLabelP.setColor(cc.color(0, 0, 150));
                 var startItemLabel = new cc.MenuItemSprite(
                     this.startLabel,
@@ -163,19 +163,19 @@ var levelSelector = cc.Layer.extend({
             }
             else {//level noch nicht freigeschaltet
                 if (cc.sys.localStorage.getItem(201) == i) {//erste nachher
-                    var tweet = new cc.LabelTTF(levelTweets[i], "res/Quicksand-Light.ttf", this.winsize.height / 50, cc.size(this.winsize.width / 3 * 2.3, (this.winsize.height - (120)) / (3 * 2)), cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_ALIGNMENT_TOP);
+                    var tweet = new cc.LabelTTF(levelTweets[i], res.font, this.winsize.height / 50, cc.size(this.winsize.width / 3 * 2.3, (this.winsize.height - (120)) / (3 * 2)), cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_ALIGNMENT_TOP);
                     tweet.setColor(cc.color(199, 200, 201));
                     tweet.setAnchorPoint(0, 1);//topleft
                     tweet.setPosition(40, topleftCornerY - 20);
                     this.scrollView.addChild(tweet);
-                    var questionLabel = new cc.LabelTTF("?", "res/Quicksand-Light.ttf", this.winsize.height / 10);
+                    var questionLabel = new cc.LabelTTF("?", res.font, this.winsize.height / 10);
                     questionLabel.setColor(cc.color(199, 200, 201));
                     questionLabel.setAnchorPoint(0.5, 0.5);
                     questionLabel.setPosition(cc.p(this.winsize.width / 2, bottomRightCornerY + ((this.winsize.height - (120)) / 10)));
                     this.scrollView.addChild(questionLabel);
                 }
                 else {
-                    var questionLabel = new cc.LabelTTF("?", "res/Quicksand-Light.ttf", this.winsize.height / 4);
+                    var questionLabel = new cc.LabelTTF("?", res.font, this.winsize.height / 4);
                     questionLabel.setColor(cc.color(199, 200, 201));
                     questionLabel.setAnchorPoint(0.5, 0.5);
                     questionLabel.setPosition(cc.p(this.winsize.width / 2, bottomRightCornerY + ((this.winsize.height - (120)) / 6)));

@@ -4,6 +4,9 @@ var res = {
     vote_false: "res/vote_false.png",
     forward: "res/forward.png"
 };
+if(cc.sys.os == cc.sys.OS_IOS || cc.sys.os == cc.sys.OS_OSX){
+    res.font = "Quicksand-Light";
+}
 var posNumbers = [0.5,3,-1,1];
 var soundsMenu = 16;
 var soundsAfterLevelLosing = 4;

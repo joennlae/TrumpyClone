@@ -1,22 +1,22 @@
 {
     "android": {
         "AdMob": {
-            "test": false, 
+            "test": false,
             "ads": {
                 "bottombanner": {
-                    "type": "banner", 
-                    "id": "ca-app-pub-4843639526094942/2103793711", 
-                    "alignment": "bottom", 
+                    "type": "banner",
+                    "id": "ca-app-pub-4843639526094942/2103793711",
+                    "alignment": "bottom",
                     "height": 50
-                }, 
+                },
                 "topbanner": {
-                    "type": "banner", 
-                    "id": "ca-app-pub-4843639526094942/2103793711", 
-                    "alignment": "top", 
+                    "type": "banner",
+                    "id": "ca-app-pub-4843639526094942/2103793711",
+                    "alignment": "top",
                     "height": 50
-                }, 
+                },
                 "gameover": {
-                    "type": "interstitial", 
+                    "type": "interstitial",
                     "id": "ca-app-pub-4843639526094942/3580526912"
                 }
             }
@@ -24,31 +24,23 @@
     }, 
     "ios": {
         "AdMob": {
-            "test": false, 
+            "test": false,
             "ads": {
-                "gameover": {
-                    "type": "interstitial", 
-                    "id": "ca-app-pub-1329374026572143/4185543717"
-                }, 
-                "home": {
-                    "width": 300, 
-                    "type": "banner", 
-                    "id": "ca-app-pub-1329374026572143/3847466511", 
-                    "alignment": "bottom", 
+                "bottombanner": {
+                    "type": "banner",
+                    "id": "ca-app-pub-4843639526094942/2103793711",
+                    "alignment": "bottom",
                     "height": 50
-                }, 
-                "next_level": {
-                    "type": "interstitial", 
-                    "id": "ca-app-pub-1329374026572143/9390403312"
-                }, 
-                "top_banner": {
-                    "type": "banner", 
-                    "id": "ca-app-pub-1329374026572143/6690628914", 
-                    "alignment": "top"
-                }, 
-                "rewarded": {
-                    "type": "rewarded_video", 
-                    "id": "ca-app-pub-1329374026572143/7991602916"
+                },
+                "topbanner": {
+                    "type": "banner",
+                    "id": "ca-app-pub-4843639526094942/2103793711",
+                    "alignment": "top",
+                    "height": 50
+                },
+                "gameover": {
+                    "type": "interstitial",
+                    "id": "ca-app-pub-4843639526094942/3580526912"
                 }
             }
         }

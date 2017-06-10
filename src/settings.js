@@ -8,9 +8,9 @@ var settingsLayer = cc.Layer.extend({
         var background = new cc.LayerColor(cc.color(255, 255, 255, 255), this.winsize.width, this.winsize.height);
         this.addChild(background);
         //back label
-        this.backLabel = new cc.LabelTTF("Back", "res/Quicksand-Light.ttf", this.winsize.height / 20);
+        this.backLabel = new cc.LabelTTF("Back", res.font, this.winsize.height / 20);
         this.backLabel.setColor(cc.color(0, 0, 0));//black color
-        this.backLabelP = new cc.LabelTTF("Back", "res/Quicksand-Light.ttf", this.winsize.height / 20);
+        this.backLabelP = new cc.LabelTTF("Back", res.font, this.winsize.height / 20);
         this.backLabelP.setColor(cc.color(0, 0, 150));
 
         var backItemLabel = new cc.MenuItemSprite(
@@ -40,14 +40,14 @@ var settingsLayer = cc.Layer.extend({
         if (JSON.parse(cc.sys.localStorage.getItem(301)) == 1) this.voteTrueMenuSound.visible = true;
         else this.voteFalseMenuSound.visible = true;
 
-        this.soundHelpLabel = new cc.LabelTTF("Sounds", "res/Quicksand-Light.ttf", this.winsize.height / 20);
+        this.soundHelpLabel = new cc.LabelTTF("Sounds", res.font, this.winsize.height / 20);
         this.soundHelpLabel.setColor(cc.color(0, 0, 0));
         this.soundHelpLabel.setAnchorPoint(0, 0.5)
         this.soundHelpLabel.setPosition(cc.p(this.winsize.width / 2 + 20, this.winsize.height / 6 * 5));
         this.addChild(this.soundHelpLabel);
 
         var text = "Some sounds are random and are just for entertainment purposes. I want to thank you know who for saying such things.";
-        this.messageLabel = new cc.LabelTTF(text, "res/Quicksand-Light.ttf",this.winsize.height/50, cc.size(this.winsize.width-40,this.winsize.height/6*3) ,cc.TEXT_ALIGNMENT_CENTER,cc.VERTICAL_TEXT_ALIGNMENT_TOP);
+        this.messageLabel = new cc.LabelTTF(text, res.font,this.winsize.height/50, cc.size(this.winsize.width-40,this.winsize.height/6*3) ,cc.TEXT_ALIGNMENT_CENTER,cc.VERTICAL_TEXT_ALIGNMENT_TOP);
         this.messageLabel.setColor(cc.color(0,0,0));
         this.messageLabel.setAnchorPoint(0.5,0.5);
         this.messageLabel.setPosition(cc.p(this.winsize.width/2,this.winsize.height/2));
