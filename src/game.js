@@ -140,6 +140,8 @@ var gameLayer = cc.Layer.extend({
     init: function () {
         this._super();
         this.initAnimations();
+        //ads
+        sdkbox.PluginAdMob.hide("bottombanner");
         this.levelShape = this.createLevel(this.levelShape);
         this.gameNode = new cc.Node;
         this.gameNode.y = 0;

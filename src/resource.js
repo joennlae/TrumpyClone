@@ -162,7 +162,7 @@ var levelsAdditional = [
     [1, 2000, 4000, 6000, 0, 0,"Score 2000 points", 0, 0,"",20]
     ];
 var amountOfTiles = 6;
-
+var amountOfLevels = levelsAdditional.length;
 var ranks = ["Fantastic", "Tremendous", "YHUUGE"];
 //gen Levels with pointscalc https://jsfiddle.net/sye41f83/
 var g_resources = [];

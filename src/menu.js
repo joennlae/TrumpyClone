@@ -17,7 +17,7 @@ var menuLayer = cc.Layer.extend({
             }
             cc.sys.localStorage.setItem(210,JSON.stringify(statsArray)); //statistics array
             var saveArray = [];
-            for(var i = 0; i < levelsAdditional.length; i++){
+            for(var i = 0; i < amountOfLevels; i++){
                 var temp = [0,0,0];
                 saveArray.push(temp);
             }
@@ -27,7 +27,13 @@ var menuLayer = cc.Layer.extend({
         cc.log("Resolution"+this.winsize.width/this.winsize.height+"Height:"+this.winsize.height+"   Width:"+this.winsize.width);
         var background = new cc.LayerColor(cc.color(255,255,255,255), this.winsize.width, this.winsize.height);
         this.addChild(background);
-		
+		//Ads
+        sdkbox.PluginAdMob.init();
+        sdkbox.PluginAdMob.cache("bottombanner");
+        sdkbox.PluginAdMob.cache("gameover");
+        sdkbox.PluginAdMob.cache("topbanner");
+        sdkbox.PluginAdMob.show("bottombanner");
+        //
 		this.startLabel = new cc.LabelTTF("Play", "res/Quicksand-Light.ttf", this.winsize.height/4);
         this.startLabel.setColor(cc.color(0,0,0));//black color
         

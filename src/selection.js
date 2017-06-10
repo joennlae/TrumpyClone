@@ -16,16 +16,26 @@ var levelSelector = cc.Layer.extend({
         this.init();
     },
     init: function () {
+        //ad
+        sdkbox.PluginAdMob.show("bottombanner");
         var background = new cc.LayerColor(cc.color(255, 255, 255, 255), this.winsize.width, this.winsize.height);
         this.addChild(background);
         this.scrollView = new ccui.ScrollView();
-        this.scrollView.setInnerContainerSize(cc.size(this.winsize.width, this.winsize.height * levelsAdditional.length/3 + this.winsize.height/3));
+        this.scrollView.setInnerContainerSize(cc.size(this.winsize.width, this.winsize.height * amountOfLevels/3 + this.winsize.height/3));
         this.scrollView.setDirection(ccui.ScrollView.DIR_VERTICAL);
         this.scrollView.setContentSize(cc.size(this.winsize.width, this.winsize.height));
         this.scrollView.setScrollBarEnabled(false);
         this.scrollView.setAnchorPoint(cc.p(0.5, 0.5));
         this.scrollView.setPosition(cc.p(this.winsize.width / 2, this.winsize.height / 2));
         this.addChild(this.scrollView, 0, 1);
+        //cc.log(((cc.sys.localStorage.getItem(201)-1)/(amountOfLevels+1))*100)
+        if(cc.sys.localStorage.getItem(201)<2){
+        this.scrollView.jumpToPercentVertical(0);
+        }
+        else{
+            this.scrollView.jumpToPercentVertical(((cc.sys.localStorage.getItem(201)-2)/(amountOfLevels+1-3))*100);
+        }
+        //this.scrollView.jumpToPercentVertical((1/9)*100);
         //back label
         this.backLabel = new cc.LabelTTF("Back", "res/Quicksand-Light.ttf", this.winsize.height / 20);
         this.backLabel.setColor(cc.color(0, 0, 0));//black color

@@ -10,6 +10,12 @@ var gameOverLayer = cc.LayerColor.extend({
         this.winsize = winsize;
         var saveArray = JSON.parse(cc.sys.localStorage.getItem(209));
 
+        //ads
+        sdkbox.PluginAdMob.show("topbanner");
+        if(sdkbox.PluginAdMob.isAvailable("gameover")){ //interstitial available
+            sdkbox.PluginAdMob.show("gameover");
+        }
+
         this.levelCompleteLabel = new cc.LabelTTF("Level Completed", "res/Quicksand-Light.ttf", winsize.height / 18);
         this.levelCompleteLabel.setPosition(cc.p(winsize.width / 2, winsize.height / 6 * 5));
         this.levelCompleteLabel.setColor(cc.color(0, 150, 0));
@@ -326,6 +332,7 @@ var gameOverLayer = cc.LayerColor.extend({
         }
     },
     onExit: function () {
+        sdkbox.PluginAdMob.hide("topbanner");
         this._super();
     }
 });
