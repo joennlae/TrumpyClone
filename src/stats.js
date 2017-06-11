@@ -36,10 +36,10 @@ var statsLayer = cc.Layer.extend({
         var sizeOfIcons = 140 / 256 * this.winsize.width / 1440;
         var statsMessages = [["..spread ", " conspiracy theories"],
         ["..consumed ", " Fake News articles"],
-        ["..been hacked ", " by the russians"],
+        ["..met ", " russian diplomats"],
         ["..signed ", " executive orders"],
         ["..collected ", " red ties"],
-        ["..written ", " tweets"]
+        ["..written ", " angry tweets"]
         ];
         for (var i = 1; i <= amountOfTiles; i++) {
             var sprite2 = new cc.Sprite.create("res/" + i + ".png");

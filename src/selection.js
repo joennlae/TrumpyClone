@@ -71,21 +71,34 @@ var levelSelector = cc.Layer.extend({
         var scaleFactor = this.winsize.height / 2550 * 0.5;
         var saveArray = JSON.parse(cc.sys.localStorage.getItem(209));
         var sizeOfIcons = 140 / 256 * this.winsize.width / 1440;
+                                    //padding calcs
+                                    var padding = 40;
+                                    if(this.winsize.width<1400){
+                                        var padding = 20;
+                                    }
+                                    else if (this.winsize.width<1000){
+                                        var padding = 10;
+                                    }
+                                    
         for (var i = 0; i < levelsAdditional.length; i++) {
-            var topleftCornerY = this.scrollView.getInnerContainerSize().height - ((i * ((this.winsize.height - (120)) / 3) + this.winsize.height / 20 + 30 + i * 40));
-            var bottomRightCornerY = this.scrollView.getInnerContainerSize().height - ((i + 1) * ((this.winsize.height - (120)) / 3) + this.winsize.height / 20 + 30 + i * 40);
+            var topleftCornerY = this.scrollView.getInnerContainerSize().height - ((i * ((this.winsize.height - (3*padding)) / 3) + this.winsize.height / 20 + 30 + 40 + (i - 1)  * padding));
+            var bottomRightCornerY = this.scrollView.getInnerContainerSize().height - ((i + 1) * ((this.winsize.height - (3*padding)) / 3) + this.winsize.height / 20 + 30 + 40 + (i - 1)  * padding);
             //dn.drawRect(cc.p(20, topleftCornerY), cc.p(this.scrollView.getInnerContainerSize().width - 20, bottomRightCornerY), cc.color(0, 0, 0, 0), 2, cc.color(0, 0, 0, 255));
-            dn.drawRect(cc.p(this.winsize.width / 6, bottomRightCornerY + 2), cc.p(this.winsize.width / 6 * 5, bottomRightCornerY), cc.color(0, 0, 0, 0), 2, cc.color(0, 0, 0, 255));
+                                    var lineThickness = 2;
+                                    if(this.winsize.width<1000){
+                                    var lineThickness = 1;
+                                    }
+            dn.drawRect(cc.p(this.winsize.width / 6, bottomRightCornerY + lineThickness), cc.p(this.winsize.width / 6 * 5, bottomRightCornerY), cc.color(0, 0, 0, 0), lineThickness, cc.color(0, 0, 0, 255));
             if (JSON.parse(cc.sys.localStorage.getItem(201)) > i) {
                 var levelNum = new cc.LabelTTF(i + 1, res.font, this.winsize.height / 12);
                 levelNum.setColor(cc.color(50, 50, 50));
                 levelNum.setAnchorPoint(1, 1);
                 levelNum.setPosition(this.winsize.width - 40, topleftCornerY - 20);
                 this.scrollView.addChild(levelNum);
-                var tweet = new cc.LabelTTF(levelTweets[i], res.font, this.winsize.height / 50, cc.size(this.winsize.width / 3 * 2.3, (this.winsize.height - (120)) / (3 * 2)), cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_ALIGNMENT_TOP);
+                var tweet = new cc.LabelTTF(levelTweets[i], res.font, this.winsize.height / 50, cc.size(this.winsize.width / 3 * 2.3, (this.winsize.height - (3*padding)) / (3 * 2)), cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_ALIGNMENT_TOP);
                 tweet.setColor(cc.color(50, 50, 50));
                 tweet.setAnchorPoint(0, 1);//topleft
-                tweet.setPosition(40, topleftCornerY - 20);
+                tweet.setPosition(padding, topleftCornerY - padding/2);
                 this.scrollView.addChild(tweet);
                 if (saveArray[i][1] == 1) {
                     var checkmark1 = new cc.Sprite(res.vote_true);
@@ -95,18 +108,18 @@ var levelSelector = cc.Layer.extend({
                 }
                 checkmark1.scale = scaleFactor;
                 checkmark1.setAnchorPoint(0, 0);
-                checkmark1.setPosition(40, bottomRightCornerY + 40 + 256 * scaleFactor);
+                checkmark1.setPosition(padding, bottomRightCornerY + padding + 256 * scaleFactor);
                 this.scrollView.addChild(checkmark1);
                 var goalLabel1 = new cc.LabelTTF(levelsAdditional[i][6], res.font, this.winsize.height / 40);
                 if (levelsAdditional[i][4] > 0) { //mit chains 
                     var sprite = new cc.Sprite.create("res/" + levelsAdditional[i][4] + ".png");
                     sprite.setAnchorPoint(0, 0.5);
-                    sprite.attr({ x: 60 + 256 * scaleFactor, y: bottomRightCornerY + 40 + 1.5 * 256 * scaleFactor, scale: sizeOfIcons * 0.7 });
+                    sprite.attr({ x: 1.5*padding + 256 * scaleFactor, y: bottomRightCornerY + padding + 1.5 * 256 * scaleFactor, scale: sizeOfIcons * 0.7 });
                     this.scrollView.addChild(sprite);
-                    goalLabel1.setPosition(60 + 256 * scaleFactor + sizeOfIcons * 256, bottomRightCornerY + 40 + 1.5 * 256 * scaleFactor);
+                    goalLabel1.setPosition(1.5*padding + 256 * scaleFactor + sizeOfIcons * 256, bottomRightCornerY + padding + 1.5 * 256 * scaleFactor);
                 }
                 else {
-                    goalLabel1.setPosition(60 + 256 * scaleFactor, bottomRightCornerY + 40 + 1.5 * 256 * scaleFactor);
+                    goalLabel1.setPosition(1.5*padding + 256 * scaleFactor, bottomRightCornerY + padding + 1.5 * 256 * scaleFactor);
                 }
                 goalLabel1.setColor(cc.color(0, 0, 0));
                 goalLabel1.setAnchorPoint(0, 0.5);
@@ -120,18 +133,18 @@ var levelSelector = cc.Layer.extend({
                     }
                     checkmark2.scale = scaleFactor;
                     checkmark2.setAnchorPoint(0, 0);
-                    checkmark2.setPosition(40, bottomRightCornerY + 20);
+                    checkmark2.setPosition(padding, bottomRightCornerY + padding/2);
                     this.scrollView.addChild(checkmark2);
                     var goalLabel2 = new cc.LabelTTF(levelsAdditional[i][9], res.font, this.winsize.height / 40);
                     if (levelsAdditional[i][7] > 0) { //mit chains 
                         var sprite = new cc.Sprite.create("res/" + levelsAdditional[i][7] + ".png");
                         sprite.setAnchorPoint(0, 0.5);
-                        sprite.attr({ x: 60 + 256 * scaleFactor, y: bottomRightCornerY + 20 + 0.5 * 256 * scaleFactor, scale: sizeOfIcons * 0.7 });
+                        sprite.attr({ x: 1.5*padding + 256 * scaleFactor, y: bottomRightCornerY + padding/2 + 0.5 * 256 * scaleFactor, scale: sizeOfIcons * 0.7 });
                         this.scrollView.addChild(sprite);
-                        goalLabel2.setPosition(60 + 256 * scaleFactor + sizeOfIcons * 256, bottomRightCornerY + 20 + 0.5 * 256 * scaleFactor);
+                        goalLabel2.setPosition(1.5*padding + 256 * scaleFactor + sizeOfIcons * 256, bottomRightCornerY + padding/2 + 0.5 * 256 * scaleFactor);
                     }
                     else {
-                        goalLabel2.setPosition(60 + 256 * scaleFactor, bottomRightCornerY + 20 + 0.5 * 256 * scaleFactor);
+                        goalLabel2.setPosition(1.5*padding + 256 * scaleFactor, bottomRightCornerY + padding/2 + 0.5 * 256 * scaleFactor);
                     }
                     goalLabel2.setColor(cc.color(0, 0, 0));
                     goalLabel2.setAnchorPoint(0, 0.5);
@@ -145,7 +158,7 @@ var levelSelector = cc.Layer.extend({
                 }
                 rankLabel.setColor(cc.color(150, 0, 0));
                 rankLabel.setAnchorPoint(1, 0.5);
-                rankLabel.setPosition(this.winsize.width - 40, bottomRightCornerY + ((this.winsize.height - (120)) / 6));
+                rankLabel.setPosition(this.winsize.width - padding, bottomRightCornerY + ((this.winsize.height - (3*padding)) / 6));
                 this.scrollView.addChild(rankLabel);
                 this.startLabel = new cc.LabelTTF("Play", res.font, this.winsize.height / 14);
                 this.startLabel.setColor(cc.color(0, 0, 0));//black color
@@ -158,27 +171,27 @@ var levelSelector = cc.Layer.extend({
                 startItemLabel.setAnchorPoint(1, 0);
                 startItemLabel.setTag(i + 1);
                 var startButton = new cc.Menu(startItemLabel);
-                startButton.setPosition(cc.p(this.winsize.width - 40, bottomRightCornerY + 20));
+                startButton.setPosition(cc.p(this.winsize.width - padding, bottomRightCornerY + padding/2));
                 this.scrollView.addChild(startButton);
             }
             else {//level noch nicht freigeschaltet
                 if (cc.sys.localStorage.getItem(201) == i) {//erste nachher
-                    var tweet = new cc.LabelTTF(levelTweets[i], res.font, this.winsize.height / 50, cc.size(this.winsize.width / 3 * 2.3, (this.winsize.height - (120)) / (3 * 2)), cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_ALIGNMENT_TOP);
+                    var tweet = new cc.LabelTTF(levelTweets[i], res.font, this.winsize.height / 50, cc.size(this.winsize.width / 3 * 2.3, (this.winsize.height - (3*padding)) / (3 * 2)), cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_ALIGNMENT_TOP);
                     tweet.setColor(cc.color(199, 200, 201));
                     tweet.setAnchorPoint(0, 1);//topleft
-                    tweet.setPosition(40, topleftCornerY - 20);
+                    tweet.setPosition(padding, topleftCornerY - padding/2);
                     this.scrollView.addChild(tweet);
                     var questionLabel = new cc.LabelTTF("?", res.font, this.winsize.height / 10);
                     questionLabel.setColor(cc.color(199, 200, 201));
                     questionLabel.setAnchorPoint(0.5, 0.5);
-                    questionLabel.setPosition(cc.p(this.winsize.width / 2, bottomRightCornerY + ((this.winsize.height - (120)) / 10)));
+                    questionLabel.setPosition(cc.p(this.winsize.width / 2, bottomRightCornerY + ((this.winsize.height - (3*padding)) / 10)));
                     this.scrollView.addChild(questionLabel);
                 }
                 else {
                     var questionLabel = new cc.LabelTTF("?", res.font, this.winsize.height / 4);
                     questionLabel.setColor(cc.color(199, 200, 201));
                     questionLabel.setAnchorPoint(0.5, 0.5);
-                    questionLabel.setPosition(cc.p(this.winsize.width / 2, bottomRightCornerY + ((this.winsize.height - (120)) / 6)));
+                    questionLabel.setPosition(cc.p(this.winsize.width / 2, bottomRightCornerY + ((this.winsize.height - (3*padding)) / 6)));
                     this.scrollView.addChild(questionLabel);
                 }
             }

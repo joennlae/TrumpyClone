@@ -11,7 +11,7 @@ var gameOverLayer = cc.LayerColor.extend({
         var saveArray = JSON.parse(cc.sys.localStorage.getItem(209));
 
         //ads
-        sdkbox.PluginAdMob.show("topbanner");
+        //sdkbox.PluginAdMob.show("topbanner"); topbanner nerft
         if(sdkbox.PluginAdMob.isAvailable("gameover")){ //interstitial available
             sdkbox.PluginAdMob.show("gameover");
         }

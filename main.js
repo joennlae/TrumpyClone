@@ -64,7 +64,7 @@ cc.game.onStart = function(){
         /*if (isLandscape){
         cc.view.setDesignResolutionSize(cc.view.getFrameSize().width,cc.view.getFrameSize().height, cc.ResolutionPolicy.SHOW_ALL);
         }
-        else cc.view.setDesignResolutionSize(cc.view.getFrameSize().height,cc.view.getFrameSize().width, cc.ResolutionPolicy.SHOW_ALL);*/4
+        else cc.view.setDesignResolutionSize(cc.view.getFrameSize().height,cc.view.getFrameSize().width, cc.ResolutionPolicy.SHOW_ALL);*/
     }
     else
     {
@@ -79,6 +79,10 @@ cc.game.onStart = function(){
         
         cc.view.resizeWithBrowserSize(true);
     }
+    var searchPaths = jsb.fileUtils.getSearchPaths();
+    searchPaths.push("res");
+    searchPaths.push("src");
+    jsb.fileUtils.setSearchPaths(searchPaths);
     //load resources
     cc.LoaderScene.preload(g_resources, function () {
         cc.director.runScene(new menuScene());

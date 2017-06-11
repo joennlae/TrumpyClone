@@ -124,9 +124,14 @@ var gameLayer = cc.Layer.extend({
     points: 0,
     goalStatusLabel1: null,
     goalStatusLabel2: null,
+                                correctionX: 0,
     ctor: function () {
         this._super();
         this.winsize = cc.director.getWinSize();
+                                if(this.winsize.width/this.winsize.height>0.6){ //zum beispiel ipad 0.75
+                                this.winsize.width = 0.6*this.winsize.height;
+                                this.correctionX = (cc.director.getWinSize().width-this.winsize.width)/2;
+                                }
         this.scaleFactor = this.winsize.width / 1440;      //154px original size 1440/9- some shit
         this.sizeOfSprite = this.scaleFactor * 154;
         this.sizeOfIcons = 140 / 256 * this.scaleFactor;
@@ -155,25 +160,25 @@ var gameLayer = cc.Layer.extend({
         //some infos
         var dn1 = new cc.DrawNode();
         this.addChild(dn1);
-        dn1.drawRect(cc.p(this.winsize.width / 2 - 1, 3.2 * this.winsize.height / 20), cc.p(this.winsize.width / 2 + 1, 1.9 * this.winsize.height / 20), cc.color(0, 0, 0, 255), 2, cc.color(0, 0, 0, 255));
+        dn1.drawRect(cc.p(this.correctionX + this.winsize.width / 2 - 1, 3.2 * this.winsize.height / 20), cc.p(this.correctionX + this.winsize.width / 2 + 1, 1.9 * this.winsize.height / 20), cc.color(0, 0, 0, 255), 2, cc.color(0, 0, 0, 255));
         //some labels 3/26 + 2/15 ~= 0.25
         var pointsLabelText = new cc.LabelTTF("Points", res.font, this.winsize.height / 30);
         pointsLabelText.setColor(cc.color(0, 0, 0));
         pointsLabelText.setAnchorPoint(1, 0);
-        pointsLabelText.setPosition(this.winsize.width / 2 - 20, 3.2 * this.winsize.height / 20);
+        pointsLabelText.setPosition(this.correctionX + this.winsize.width / 2 - 20, 3.2 * this.winsize.height / 20);
         var movesLabelText = new cc.LabelTTF("Moves left", res.font, this.winsize.height / 30);
         movesLabelText.setColor(cc.color(0, 0, 0));
         movesLabelText.setAnchorPoint(0, 0);
-        movesLabelText.setPosition(this.winsize.width / 2 + 20, 3.2 * this.winsize.height / 20);
+        movesLabelText.setPosition(this.correctionX + this.winsize.width / 2 + 20, 3.2 * this.winsize.height / 20);
 
         this.movesLabelValue = new cc.LabelTTF(this.moves, res.font, this.winsize.height / 20);
         this.movesLabelValue.setColor(cc.color(0, 0, 0));
         this.movesLabelValue.setAnchorPoint(0, 0);
-        this.movesLabelValue.setPosition(this.winsize.width / 2 + 20, 2 * this.winsize.height / 20);
+        this.movesLabelValue.setPosition(this.correctionX + this.winsize.width / 2 + 20, 2 * this.winsize.height / 20);
         this.pointsLabelValue = new cc.LabelTTF("0", res.font, this.winsize.height / 20);
         this.pointsLabelValue.setColor(cc.color(0, 0, 0));
         this.pointsLabelValue.setAnchorPoint(1, 0);
-        this.pointsLabelValue.setPosition(this.winsize.width / 2 - 20, 2 * this.winsize.height / 20);
+        this.pointsLabelValue.setPosition(this.correctionX + this.winsize.width / 2 - 20, 2 * this.winsize.height / 20);
         this.addChild(pointsLabelText);
         this.addChild(movesLabelText);
         this.addChild(this.movesLabelValue);
@@ -186,28 +191,28 @@ var gameLayer = cc.Layer.extend({
         var checkmark1 = new cc.Sprite(res.vote_false);
         checkmark1.scale = scaleFactor;
         checkmark1.setAnchorPoint(0, 1);
-        checkmark1.setPosition(this.winsize.width / 20, this.winsize.height - this.winsize.height / 15);
+        checkmark1.setPosition(this.correctionX + this.winsize.width / 20, this.winsize.height - this.winsize.height / 15);
         this.addChild(checkmark1, 1, 1001);
         var goalLabel1 = new cc.LabelTTF(levelsAdditional[levelNum][6], res.font, this.winsize.height / 30);
         if (levelsAdditional[levelNum][4] > 0) { //mit chains 
             var sprite = new cc.Sprite.create("res/" + levelsAdditional[levelNum][4] + ".png");
             sprite.setAnchorPoint(0, 0.5);
-            sprite.attr({ x: this.winsize.width / 20 + 256 * scaleFactor + this.winsize.width / 40, y: this.winsize.height - this.winsize.height / 15 - 0.5 * 256 * scaleFactor, scale: this.sizeOfIcons * 0.7 });
+            sprite.attr({ x: this.correctionX + this.winsize.width / 20 + 256 * scaleFactor +  this.winsize.width / 40, y: this.winsize.height - this.winsize.height / 15 - 0.5 * 256 * scaleFactor, scale: this.sizeOfIcons * 0.7 });
             this.addChild(sprite);
-            goalLabel1.setPosition(this.winsize.width / 20 + 256 * scaleFactor + this.winsize.width / 40 + this.sizeOfIcons * 256, this.winsize.height - this.winsize.height / 15 - 0.5 * 256 * scaleFactor);
+            goalLabel1.setPosition(this.correctionX + this.winsize.width / 20 + 256 * scaleFactor + this.winsize.width / 40 + this.sizeOfIcons * 256, this.winsize.height - this.winsize.height / 15 - 0.5 * 256 * scaleFactor);
             //status Label 
-            this.goalStatusLabel1 = new cc.LabelTTF("0", res.font, this.winsize.height / 40);
+            this.goalStatusLabel1 = new cc.LabelTTF("0", res.font, this.winsize.height / 30);
             this.goalStatusLabel1.setColor(cc.color(0, 0, 0));
             this.goalStatusLabel1.setAnchorPoint(0, 0.5);
-            this.goalStatusLabel1.setPosition(this.winsize.width / 2 + 20, 2 * this.winsize.height / 40 + 20);
+            this.goalStatusLabel1.setPosition(this.correctionX + this.winsize.width / 2 + 20, 2 * this.winsize.height / 40 + 20);
             this.addChild(this.goalStatusLabel1);
             var sprite2 = new cc.Sprite.create("res/" + levelsAdditional[levelNum][4] + ".png");
             sprite2.setAnchorPoint(1, 0.5);
-            sprite2.attr({ x: this.winsize.width / 2 - 20, y: 2 * this.winsize.height / 40 + 20, scale: this.sizeOfIcons * 0.7 });
+            sprite2.attr({ x: this.correctionX + this.winsize.width / 2 - 20, y: 2 * this.winsize.height / 40 + 20, scale: this.sizeOfIcons * 0.7 });
             this.addChild(sprite2,1,1500);
         }
         else {
-            goalLabel1.setPosition(this.winsize.width / 20 + 256 * scaleFactor + this.winsize.width / 40, this.winsize.height - this.winsize.height / 15 - 0.5 * 256 * scaleFactor);
+            goalLabel1.setPosition(this.correctionX + this.winsize.width / 20 + 256 * scaleFactor +  this.winsize.width / 40, this.winsize.height - this.winsize.height / 15 - 0.5 * 256 * scaleFactor);
         }
         goalLabel1.setColor(cc.color(0, 0, 0));
         goalLabel1.setAnchorPoint(0, 0.5);
@@ -217,40 +222,40 @@ var gameLayer = cc.Layer.extend({
             var checkmark2 = new cc.Sprite(res.vote_false);
             checkmark2.scale = scaleFactor;
             checkmark2.setAnchorPoint(0, 1);
-            checkmark2.setPosition(this.winsize.width / 20, this.winsize.height - 2 * this.winsize.height / 15);
+            checkmark2.setPosition(this.correctionX + this.winsize.width / 20, this.winsize.height - 2 * this.winsize.height / 15);
             this.addChild(checkmark2, 1, 1002);
             var goalLabel2 = new cc.LabelTTF(levelsAdditional[levelNum][9], res.font, this.winsize.height / 30);
             if (levelsAdditional[levelNum][7] > 0) { //mit chains 
                 var sprite = new cc.Sprite.create("res/" + levelsAdditional[levelNum][7] + ".png");
                 sprite.setAnchorPoint(0, 0.5);
-                sprite.attr({ x: this.winsize.width / 20 + 256 * scaleFactor + this.winsize.width / 40, y: this.winsize.height - 2 * this.winsize.height / 15 - 0.5 * 256 * scaleFactor, scale: this.sizeOfIcons * 0.7 });
+                sprite.attr({ x: this.correctionX + this.winsize.width / 20 + 256 * scaleFactor +  this.winsize.width / 40, y: this.winsize.height - 2 * this.winsize.height / 15 - 0.5 * 256 * scaleFactor, scale: this.sizeOfIcons * 0.7 });
                 this.addChild(sprite);
-                goalLabel2.setPosition(this.winsize.width / 20 + 256 * scaleFactor + this.winsize.width / 40 + this.sizeOfIcons * 256, this.winsize.height - 2 * this.winsize.height / 15 - 0.5 * 256 * scaleFactor);
+                goalLabel2.setPosition(this.correctionX + this.winsize.width / 20 + 256 * scaleFactor + this.winsize.width / 40 + this.sizeOfIcons * 256, this.winsize.height - 2 * this.winsize.height / 15 - 0.5 * 256 * scaleFactor);
                 //status Label
-                this.goalStatusLabel2 = new cc.LabelTTF("0", res.font, this.winsize.height / 40);
+                this.goalStatusLabel2 = new cc.LabelTTF("0", res.font, this.winsize.height / 30);
                 this.goalStatusLabel2.setColor(cc.color(0, 0, 0));
                 this.goalStatusLabel2.setAnchorPoint(0, 0.5);
-                this.goalStatusLabel2.setPosition(this.winsize.width / 4 *3  + 20, 2 * this.winsize.height / 40 + 20);
-                this.goalStatusLabel1.setPosition(this.winsize.width / 4 + 20,2 * this.winsize.height / 40 + 20 );
+                this.goalStatusLabel2.setPosition(this.correctionX + this.winsize.width / 4 *3  + 20, 2 * this.winsize.height / 40 + 20);
+                this.goalStatusLabel1.setPosition(this.correctionX + this.winsize.width / 4 + 20,2 * this.winsize.height / 40 + 20 );
                 this.addChild(this.goalStatusLabel2);
-                this.getChildByTag(1500).setPosition(this.winsize.width / 4 - 20 ,2 * this.winsize.height / 40 + 20)
+                this.getChildByTag(1500).setPosition(this.correctionX + this.winsize.width / 4 - 20 ,2 * this.winsize.height / 40 + 20)
                 var sprite2 = new cc.Sprite.create("res/" + levelsAdditional[levelNum][7] + ".png");
                 sprite2.setAnchorPoint(1, 0.5);
-                sprite2.attr({ x: this.winsize.width / 4 *3 - 20, y: 2 * this.winsize.height / 40 + 20, scale: this.sizeOfIcons * 0.7 });
+                sprite2.attr({ x: this.correctionX + this.winsize.width / 4 *3 - 20, y: 2 * this.winsize.height / 40 + 20, scale: this.sizeOfIcons * 0.7 });
                 this.addChild(sprite2);
             }
             else {
-                goalLabel2.setPosition(this.winsize.width / 20 + 256 * scaleFactor + this.winsize.width / 40 + this.sizeOfIcons * 256, this.winsize.height - 2 * this.winsize.height / 15 - 0.5 * 256 * scaleFactor);
+                goalLabel2.setPosition(this.correctionX + this.winsize.width / 20 + 256 * scaleFactor + this.winsize.width / 40 + this.sizeOfIcons * 256, this.winsize.height - 2 * this.winsize.height / 15 - 0.5 * 256 * scaleFactor);
             }
             goalLabel2.setColor(cc.color(0, 0, 0));
             goalLabel2.setAnchorPoint(0, 0.5);
             this.addChild(goalLabel2);
         }
-
+        //level initialization
         for (var i = 0; i < this.levelShape.length; i++) {
             for (var j = 0; j < this.levelShape[0].length; j++) {
                 var sprite = new cc.Sprite.create("res/" + this.levelShape[i][j] + ".png");
-                sprite.attr({ x: j * this.sizeOfSprite + 104 * this.scaleFactor, y: i * this.sizeOfSprite + this.upwardsTransition, scale: this.sizeOfIcons });
+                sprite.attr({ x: this.correctionX + j * this.sizeOfSprite + 104 * this.scaleFactor, y: i * this.sizeOfSprite + this.upwardsTransition, scale: this.sizeOfIcons });
                 this.gameNode.addChild(sprite, 0, 100 * i + j);
             }
         }
@@ -433,7 +438,7 @@ var gameLayer = cc.Layer.extend({
                         this.levelShape[this.levelShape.length - n][j] = random;
                         var sprite = new cc.Sprite.create("res/" + random + ".png");
                         sprite.setOpacity(0);
-                        sprite.attr({ x: j * this.sizeOfSprite + 104 * this.scaleFactor, y: (this.levelShape.length - 1) * this.sizeOfSprite + this.upwardsTransition, scale: this.sizeOfIcons });
+                        sprite.attr({ x: this.correctionX + j * this.sizeOfSprite + 104 * this.scaleFactor, y: (this.levelShape.length - 1) * this.sizeOfSprite + this.upwardsTransition, scale: this.sizeOfIcons });
                         this.gameNode.addChild(sprite, 0, 100 * (this.levelShape.length - n) + j);
                         this.gameNode.getChildByTag((this.levelShape.length - n) * 100 + j).runAction(cc.sequence(new cc.DelayTime(temp * 0.2), new cc.FadeIn(0.2), new cc.MoveBy(0.2, cc.p(0, -(n - 1) * this.sizeOfSprite))));
                         if (temp > tempHigh) tempHigh = temp;
@@ -536,7 +541,7 @@ var gameLayer = cc.Layer.extend({
                         this.levelShape[this.levelShape.length - n][j] = random;
                         var sprite = new cc.Sprite.create("res/" + random + ".png");
                         sprite.setOpacity(0);
-                        sprite.attr({ x: j * this.sizeOfSprite + 104 * this.scaleFactor, y: (this.levelShape.length - 1) * this.sizeOfSprite + this.upwardsTransition, scale: this.sizeOfIcons });
+                        sprite.attr({ x: this.correctionX + j * this.sizeOfSprite + 104 * this.scaleFactor, y: (this.levelShape.length - 1) * this.sizeOfSprite + this.upwardsTransition, scale: this.sizeOfIcons });
                         this.gameNode.addChild(sprite, 0, 100 * (this.levelShape.length - n) + j);
                         this.gameNode.getChildByTag((this.levelShape.length - n) * 100 + j).runAction(cc.sequence(new cc.DelayTime(temp * 0.2), new cc.FadeIn(0.4), new cc.MoveBy(0.2, cc.p(0, -(n - 1) * this.sizeOfSprite))));
                         temp++;
@@ -872,7 +877,7 @@ var gameLayer = cc.Layer.extend({
                 var comboLabel = new cc.LabelTTF("MADNESS", res.font, this.winsize.height / 20);
                 comboLabel.setAnchorPoint(0.5, 0.5);
                 comboLabel.setColor(cc.color(150, 0, 0));
-                comboLabel.setPosition(this.winsize.width / 2, this.winsize.height / 2);
+                comboLabel.setPosition(this.correctionX + this.winsize.width / 2, this.winsize.height / 2);
                 this.gameNode.addChild(comboLabel);
                 comboLabel.runAction(cc.sequence(new cc.ScaleBy(0.5, 1.2), new cc.FadeOut(0.3), removeSelfAction));
                 this.audio(300*Math.floor(Math.random()*soundsCombos));
@@ -881,7 +886,7 @@ var gameLayer = cc.Layer.extend({
                 var comboLabel = new cc.LabelTTF("Incredible", res.font, this.winsize.height / 20);
                 comboLabel.setAnchorPoint(0.5, 0.5);
                 comboLabel.setColor(cc.color(150, 0, 0));
-                comboLabel.setPosition(this.winsize.width / 2, this.winsize.height / 2);
+                comboLabel.setPosition(this.correctionX + this.winsize.width / 2, this.winsize.height / 2);
                 this.gameNode.addChild(comboLabel);
                 comboLabel.runAction(cc.sequence(new cc.ScaleBy(0.5, 1.2), new cc.FadeOut(0.3), removeSelfAction));
                 this.audio(300*Math.floor(Math.random()*soundsCombos));
@@ -890,7 +895,7 @@ var gameLayer = cc.Layer.extend({
                 var comboLabel = new cc.LabelTTF("Huge", res.font, this.winsize.height / 20);
                 comboLabel.setAnchorPoint(0.5, 0.5);
                 comboLabel.setColor(cc.color(150, 0, 0));
-                comboLabel.setPosition(this.winsize.width / 2, this.winsize.height / 2);
+                comboLabel.setPosition(this.correctionX + this.winsize.width / 2, this.winsize.height / 2);
                 this.gameNode.addChild(comboLabel);
                 comboLabel.runAction(cc.sequence(new cc.ScaleBy(0.5, 1.2), new cc.FadeOut(0.3), removeSelfAction));
                 this.audio(300*Math.floor(Math.random()*soundsCombos));
@@ -899,7 +904,7 @@ var gameLayer = cc.Layer.extend({
                 var comboLabel = new cc.LabelTTF(this.comboCounter + "x Combo", res.font, this.winsize.height / 20);
                 comboLabel.setAnchorPoint(0.5, 0.5);
                 comboLabel.setColor(cc.color(150, 0, 0));
-                comboLabel.setPosition(this.winsize.width / 2, this.winsize.height / 2);
+                comboLabel.setPosition(this.correctionX + this.winsize.width / 2, this.winsize.height / 2);
                 this.gameNode.addChild(comboLabel);
                 comboLabel.runAction(cc.sequence(new cc.ScaleBy(0.5, 1.2), new cc.FadeOut(0.3), removeSelfAction));
             }
@@ -943,7 +948,7 @@ var gameLayer = cc.Layer.extend({
                 var checkmark1 = new cc.Sprite(res.vote_true);
                 checkmark1.scale = scaleFactor;
                 checkmark1.setAnchorPoint(0, 1);
-                checkmark1.setPosition(this.winsize.width / 20, this.winsize.height - this.winsize.height / 15);
+                checkmark1.setPosition(this.correctionX + this.winsize.width / 20, this.winsize.height - this.winsize.height / 15);
                 this.removeChildByTag(1001);
                 this.addChild(checkmark1, 1, 1001);
                 this.goalOne = true;
@@ -955,7 +960,7 @@ var gameLayer = cc.Layer.extend({
                 var checkmark1 = new cc.Sprite(res.vote_true);
                 checkmark1.scale = scaleFactor;
                 checkmark1.setAnchorPoint(0, 1);
-                checkmark1.setPosition(this.winsize.width / 20, this.winsize.height - this.winsize.height / 15);
+                checkmark1.setPosition(this.correctionX + this.winsize.width / 20, this.winsize.height - this.winsize.height / 15);
                 this.removeChildByTag(1001);
                 this.addChild(checkmark1, 1, 1001);
                 this.goalOne = true;
@@ -967,7 +972,7 @@ var gameLayer = cc.Layer.extend({
                 var checkmark1 = new cc.Sprite(res.vote_true);
                 checkmark1.scale = scaleFactor;
                 checkmark1.setAnchorPoint(0, 1);
-                checkmark1.setPosition(this.winsize.width / 20, this.winsize.height - this.winsize.height / 15);
+                checkmark1.setPosition(this.correctionX + this.winsize.width / 20, this.winsize.height - this.winsize.height / 15);
                 this.removeChildByTag(1001);
                 this.addChild(checkmark1, 1, 1001);
                 this.goalOne = true;
@@ -977,7 +982,7 @@ var gameLayer = cc.Layer.extend({
                 var checkmark2 = new cc.Sprite(res.vote_true);
                 checkmark2.scale = scaleFactor;
                 checkmark2.setAnchorPoint(0, 1);
-                checkmark2.setPosition(this.winsize.width / 20, this.winsize.height - 2 * this.winsize.height / 15);
+                checkmark2.setPosition(this.correctionX + this.winsize.width / 20, this.winsize.height - 2 * this.winsize.height / 15);
                 this.removeChildByTag(1002);
                 this.addChild(checkmark2, 1, 1002);
                 this.goalTwo = true;
@@ -1103,11 +1108,14 @@ var gameLayer = cc.Layer.extend({
         return i;
     },
     calcJ: function (x) {
-        var j = ((x - 27) / this.sizeOfSprite);
+                                cc.log(x);
+        var j = ((x - 27 - this.correctionX) / this.sizeOfSprite);
         if (j > 0 && j < this.thingsPerRow) {
             j = Math.floor(j);
         }
         else j = 404;
+                                cc.log(j);
+                                cc.log(((x - 27 - this.correctionX) / this.sizeOfSprite));
         return j;
     },
     loadLvl: function () {
