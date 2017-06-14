@@ -722,10 +722,7 @@ var levelsArray = [
                     [1, 1, 1, 1, 1, 1, 1, 1, 1]]
                     ];//done
                     
-                    
-                    
-                    
-                    
+       
     //levelsAdditional [numOfGoals,pointsForRank3,pointsForRank2,pointsForRank1,type1Goal,amoutOftype1Chains,goal1String,type2Goal,amoutOftype2Chains,goal2String,movesAvailable]
     //types: 
     // 1: iluminati

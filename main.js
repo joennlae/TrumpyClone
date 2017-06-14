@@ -84,8 +84,9 @@ cc.game.onStart = function(){
     searchPaths.push("src");
     jsb.fileUtils.setSearchPaths(searchPaths);
     //load resources
-    cc.LoaderScene.preload(g_resources, function () {
+    /*cc.LoaderScene.preload(g_resources, function () {
         cc.director.runScene(new menuScene());
-    }, this);
+    }, this);*/
+    cc.director.runScene(new menuScene());
 };
 cc.game.run();
