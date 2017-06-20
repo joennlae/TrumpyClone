@@ -1,11 +1,31 @@
 var levelSelectorScene = cc.Scene.extend({
     onEnter: function () {
         this._super();
+                                         var loading = new loadingLayer();
+                                         this.addChild(loading,1000,1);
         var layer = new levelSelector();
-        this.addChild(layer);
+        this.addChild(layer,0,0);
+                                         this.removeChildByTag(1);
     }
 });
-
+var loadingLayer = cc.Layer.extend({
+                                   winsize: null,
+                                   messageLabel: null,
+                                   ctor: function(){
+                                        this._super();
+                                        this.winsize = cc.director.getWinSize();
+                                        this.init();
+                                   },
+                                   init: function(){
+                                        var whiteLayer = new cc.LayerColor(cc.color(255,255,255,255),this.winsize.width,this.winsize.height);
+                                        this.addChild(whiteLayer);
+                                   this.messageLabel = new cc.LabelTTF("Loading", res.font,this.winsize.height/8, cc.size(this.winsize.width-40,this.winsize.height/3) ,cc.TEXT_ALIGNMENT_CENTER,cc.VERTICAL_TEXT_ALIGNMENT_TOP);
+                                   this.messageLabel.setColor(cc.color(0,0,0));
+                                   this.messageLabel.setAnchorPoint(0.5,0.5);
+                                   this.messageLabel.setPosition(cc.p(this.winsize.width/2,this.winsize.height/2));
+                                   this.addChild(this.messageLabel);
+                                   }
+});
 var levelSelector = cc.Layer.extend({
     scrollView: null,
     winsize: null,
@@ -16,6 +36,7 @@ var levelSelector = cc.Layer.extend({
         this.init();
     },
     init: function () {
+                                    
         //loading bar
                                     var time = Date.now();
                                     cc.log("start");

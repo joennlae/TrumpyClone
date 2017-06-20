@@ -66,7 +66,7 @@ var menuLayer = cc.Layer.extend({
         this.addChild(this.messageLabel,5);
         this.messageLabel.runAction(new cc.ScaleTo(1.5, 1));
 
-        this.messageLabel2 = new cc.LabelTTF(startUpMessagesold[Math.floor(Math.random()*(startUpMessages.length))], res.font, this.winsize.height/25);
+        this.messageLabel2 = new cc.LabelTTF(startUpMessagesold[Math.floor(Math.random()*(startUpMessagesold.length))], res.font, this.winsize.height/25);
         this.messageLabel2.setColor(cc.color(150,0,0));
         this.messageLabel2.setPosition(cc.p(0,this.winsize.height/3*2));
         this.messageLabel2.setAnchorPoint(0.5,0.5);
