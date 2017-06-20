@@ -16,6 +16,9 @@ var levelSelector = cc.Layer.extend({
         this.init();
     },
     init: function () {
+        //loading bar
+                                    var time = Date.now();
+                                    cc.log("start");
         //ad
         sdkbox.PluginAdMob.show("bottombanner");
         var background = new cc.LayerColor(cc.color(255, 255, 255, 255), this.winsize.width, this.winsize.height);
@@ -196,6 +199,7 @@ var levelSelector = cc.Layer.extend({
                 }
             }
         }
+                                    cc.log(Date.now()-time +  "ms loading time");
     },
     getRank: function (levelNum) {
         var saveArray = JSON.parse(cc.sys.localStorage.getItem(209));
