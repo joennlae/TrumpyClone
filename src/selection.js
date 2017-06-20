@@ -1,45 +1,39 @@
 var levelSelectorScene = cc.Scene.extend({
     onEnter: function () {
         this._super();
-                                         var loading = new loadingLayer();
-                                         this.addChild(loading,1000,1);
         var layer = new levelSelector();
-        this.addChild(layer,0,0);
-                                         this.removeChildByTag(1);
+        this.addChild(layer,0,0);                              
     }
 });
-var loadingLayer = cc.Layer.extend({
-                                   winsize: null,
-                                   messageLabel: null,
-                                   ctor: function(){
-                                        this._super();
-                                        this.winsize = cc.director.getWinSize();
-                                        this.init();
-                                   },
-                                   init: function(){
-                                        var whiteLayer = new cc.LayerColor(cc.color(255,255,255,255),this.winsize.width,this.winsize.height);
-                                        this.addChild(whiteLayer);
-                                   this.messageLabel = new cc.LabelTTF("Loading", res.font,this.winsize.height/8, cc.size(this.winsize.width-40,this.winsize.height/3) ,cc.TEXT_ALIGNMENT_CENTER,cc.VERTICAL_TEXT_ALIGNMENT_TOP);
-                                   this.messageLabel.setColor(cc.color(0,0,0));
-                                   this.messageLabel.setAnchorPoint(0.5,0.5);
-                                   this.messageLabel.setPosition(cc.p(this.winsize.width/2,this.winsize.height/2));
-                                   this.addChild(this.messageLabel);
-                                   }
-});
+
 var levelSelector = cc.Layer.extend({
     scrollView: null,
     winsize: null,
+    messageLabel: null,
     ctor: function () {
         levelSelector_copy = this;
         this._super();
         this.winsize = cc.director.getWinSize();
-        this.init();
+        this.loadingInit();
+    },
+    loadingInit: function(){
+        //loading bar
+        var whiteLayer = new cc.LayerColor(cc.color(255,255,255,255),this.winsize.width,this.winsize.height);
+        this.addChild(whiteLayer,1000,1001);
+        this.messageLabel = new cc.LabelTTF("Loading", res.font,this.winsize.height/8, cc.size(this.winsize.width-40,this.winsize.height/3) ,cc.TEXT_ALIGNMENT_CENTER,cc.VERTICAL_TEXT_ALIGNMENT_TOP);
+        this.messageLabel.setColor(cc.color(0,0,0));
+        this.messageLabel.setAnchorPoint(0.5,0.5);
+        this.messageLabel.setPosition(cc.p(this.winsize.width/2,this.winsize.height/2));
+        this.addChild(this.messageLabel,1001,1002);
+        cc.director.getScheduler().scheduleCallbackForTarget(this, ((function () { return function () { this.init() } })()),0, 0, 0, false);
     },
     init: function () {
                                     
-        //loading bar
-                                    var time = Date.now();
-                                    cc.log("start");
+        
+
+                                   
+        var time = Date.now();
+        cc.log("start");
         //ad
         sdkbox.PluginAdMob.show("bottombanner");
         var background = new cc.LayerColor(cc.color(255, 255, 255, 255), this.winsize.width, this.winsize.height);
@@ -220,7 +214,9 @@ var levelSelector = cc.Layer.extend({
                 }
             }
         }
-                                    cc.log(Date.now()-time +  "ms loading time");
+        cc.log(Date.now()-time +  "ms loading time");
+        this.removeChildByTag(1001);
+        this.removeChildByTag(1002);
     },
     getRank: function (levelNum) {
         var saveArray = JSON.parse(cc.sys.localStorage.getItem(209));
