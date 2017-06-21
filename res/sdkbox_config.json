@@ -57,7 +57,7 @@
             "items": {
                 "remove_ads": {
                     "type": "non_consumable", 
-                    "id": "com.cocos2dx.non1"
+                    "id": "ch.jsdev.altcrush.removeads"
                 }
             }
         }

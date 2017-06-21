@@ -29,6 +29,7 @@ var menuLayer = cc.Layer.extend({
         var background = new cc.LayerColor(cc.color(255,255,255,255), this.winsize.width, this.winsize.height);
         this.addChild(background);
 		//Ads
+                                cc.log(cc.sys.localStorage.getItem(401));
         if(cc.sys.localStorage.getItem(401)==0){
             sdkbox.PluginAdMob.init();
             sdkbox.PluginAdMob.cache("bottombanner");
@@ -39,6 +40,7 @@ var menuLayer = cc.Layer.extend({
         //
         //iap
         sdkbox.IAP.init();
+                                sdkbox.IAP.setDebug(true);
         sdkbox.IAP.setListener({
             onRestored : function (product) {
                 //Purchase restored

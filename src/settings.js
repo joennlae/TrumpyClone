@@ -90,7 +90,7 @@ var settingsLayer = cc.Layer.extend({
                 //Purchase success
                 cc.log("Purchase successful: " + product.name);
                 cc.sys.localStorage.setItem(401,1);
-                sdkbox.hide("bottombanner");
+                sdkbox.PluginAdMob.hide("bottombanner");
                 this.voteFalseMenuAds.visible = true;
                 this.voteTrueMenuAds.visible = false;
             },
