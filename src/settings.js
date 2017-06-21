@@ -78,7 +78,7 @@ var settingsLayer = cc.Layer.extend({
         this.AdsHelpLabel.setPosition(cc.p(this.winsize.width / 2 + 20, this.winsize.height / 6 * 3));
         this.addChild(this.AdsHelpLabel);
 
-        var text = "Remove ads form the app and with that support the developer.";
+        var text = "Remove ads form the app and with that support the developer. In App Purchase!";
         this.messageAdsLabel = new cc.LabelTTF(text, res.font,this.winsize.height/50, cc.size(this.winsize.width-40,this.winsize.height/6*1) ,cc.TEXT_ALIGNMENT_CENTER,cc.VERTICAL_TEXT_ALIGNMENT_TOP);
         this.messageAdsLabel.setColor(cc.color(0,0,0));
         this.messageAdsLabel.setAnchorPoint(0.5,0.5);
