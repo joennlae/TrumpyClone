@@ -12,8 +12,10 @@ var gameOverLayer = cc.LayerColor.extend({
 
         //ads
         //sdkbox.PluginAdMob.show("topbanner"); topbanner nerft
-        if(sdkbox.PluginAdMob.isAvailable("gameover")){ //interstitial available
-            sdkbox.PluginAdMob.show("gameover");
+        if(cc.sys.localStorage.getItem(401)==0){
+            if(sdkbox.PluginAdMob.isAvailable("gameover")){ //interstitial available
+                sdkbox.PluginAdMob.show("gameover");
+            }
         }
 
         this.levelCompleteLabel = new cc.LabelTTF("Level Completed", res.font, winsize.height / 18);

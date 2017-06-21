@@ -52,6 +52,60 @@ var settingsLayer = cc.Layer.extend({
         this.messageLabel.setAnchorPoint(0.5,0.5);
         this.messageLabel.setPosition(cc.p(this.winsize.width/2,this.winsize.height/2));
         this.addChild(this.messageLabel);
+
+        //ads 
+        this.voteTrueButtonAds = new cc.MenuItemSprite(new cc.Sprite(res.vote_true), new cc.Sprite(res.vote_true), this.ads, this);
+        this.voteFalseButtonAds = new cc.MenuItemSprite(new cc.Sprite(res.vote_false), new cc.Sprite(res.vote_false), this.ads, this);
+        this.voteTrueMenuAds = new cc.Menu(this.voteTrueButtonAds);
+        this.voteTrueButtonAds.scale = scaleFactor;
+        this.voteFalseMenuAds = new cc.Menu(this.voteFalseButtonAds);
+        this.voteFalseButtonAds.scale = scaleFactor;
+        this.voteFalseButtonAds.setAnchorPoint(1, 0.5);
+        this.voteTrueButtonAds.setAnchorPoint(1, 0.5)
+        this.voteTrueMenuAds.setPosition(cc.p(this.winsize.width / 2 - 20, this.winsize.height / 6 * 3));
+        this.voteFalseMenuAds.setPosition(cc.p(this.winsize.width / 2 - 20, this.winsize.height / 6 * 3));
+        this.voteTrueMenuAds.visible = false;
+        this.voteFalseMenuAds.visible = false;
+        this.addChild(this.voteTrueMenuAds);
+        this.addChild(this.voteFalseMenuAds);
+
+        if (JSON.parse(cc.sys.localStorage.getItem(401)) == 1) this.voteTrueMenuAds.visible = true;
+        else this.voteFalseMenuAds.visible = true;
+
+        this.AdsHelpLabel = new cc.LabelTTF("Ads", res.font, this.winsize.height / 20);
+        this.AdsHelpLabel.setColor(cc.color(0, 0, 0));
+        this.AdsHelpLabel.setAnchorPoint(0, 0.5)
+        this.AdsHelpLabel.setPosition(cc.p(this.winsize.width / 2 + 20, this.winsize.height / 6 * 3));
+        this.addChild(this.AdsHelpLabel);
+
+        var text = "Remove ads form the app and with that support the developer.";
+        this.messageAdsLabel = new cc.LabelTTF(text, res.font,this.winsize.height/50, cc.size(this.winsize.width-40,this.winsize.height/6*1) ,cc.TEXT_ALIGNMENT_CENTER,cc.VERTICAL_TEXT_ALIGNMENT_TOP);
+        this.messageAdsLabel.setColor(cc.color(0,0,0));
+        this.messageAdsLabel.setAnchorPoint(0.5,0.5);
+        this.messageAdsLabel.setPosition(cc.p(this.winsize.width/2,this.winsize.height/6*2));
+        this.addChild(this.messageAdsLabel);
+        //ads 
+        sdkbox.IAP.setListener({
+            onSuccess : function (product) {
+                //Purchase success
+                cc.log("Purchase successful: " + product.name);
+                cc.sys.localStorage.setItem(401,1);
+                sdkbox.hide("bottombanner");
+                this.voteFalseMenuAds.visible = true;
+                this.voteTrueMenuAds.visible = false;
+            },
+            onFailure : function (product, msg) {
+                //Purchase failed
+                //msg is the error message
+                cc.log("Purchase failed: " + product.name + " error: " + msg);
+
+            },
+            onCanceled : function (product) {
+                //Purchase was canceled by user
+                cc.log("Purchase canceled: " + product.name);
+            }
+        });
+        //
     },
     sound: function () {
         if (JSON.parse(cc.sys.localStorage.getItem(301)) == 1) {
@@ -66,6 +120,11 @@ var settingsLayer = cc.Layer.extend({
             this.voteFalseMenuSound.visible = false;
             cc.audioEngine.stopAllEffects();
             cc.audioEngine.playEffect("res/" + 0 + ".mp3");
+        }
+    },
+    ads: function(){
+        if(cc.sys.localStorage.getItem(401)==0){
+            sdkbox.IAP.purchase("remove_ads");
         }
     },
     onBack: function () {

@@ -28,14 +28,10 @@ var levelSelector = cc.Layer.extend({
         cc.director.getScheduler().scheduleCallbackForTarget(this, ((function () { return function () { this.init() } })()),0, 0, 0, false);
     },
     init: function () {
-                                    
-        
-
-                                   
-        var time = Date.now();
-        cc.log("start");
         //ad
-        sdkbox.PluginAdMob.show("bottombanner");
+        if(cc.sys.localStorage.getItem(401)==0){
+            sdkbox.PluginAdMob.show("bottombanner");
+        }
         var background = new cc.LayerColor(cc.color(255, 255, 255, 255), this.winsize.width, this.winsize.height);
         this.addChild(background);
         this.scrollView = new ccui.ScrollView();
@@ -214,7 +210,6 @@ var levelSelector = cc.Layer.extend({
                 }
             }
         }
-        cc.log(Date.now()-time +  "ms loading time");
         this.removeChildByTag(1001);
         this.removeChildByTag(1002);
     },

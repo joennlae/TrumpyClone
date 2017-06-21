@@ -11,6 +11,7 @@ var menuLayer = cc.Layer.extend({
             cc.sys.localStorage.setItem(220,1); //first start
             cc.sys.localStorage.setItem(201,1); //level progress
             cc.sys.localStorage.setItem(301,1); //sounds on/off
+            cc.sys.localStorage.setItem(401,0); //remove ads 0=ads on
             var statsArray = [];
             for(var i = 0; i<=amountOfTiles; i++){
                 statsArray.push(0);
@@ -28,11 +29,26 @@ var menuLayer = cc.Layer.extend({
         var background = new cc.LayerColor(cc.color(255,255,255,255), this.winsize.width, this.winsize.height);
         this.addChild(background);
 		//Ads
-        sdkbox.PluginAdMob.init();
-        sdkbox.PluginAdMob.cache("bottombanner");
-        sdkbox.PluginAdMob.cache("gameover");
-        sdkbox.PluginAdMob.cache("topbanner");
-        sdkbox.PluginAdMob.show("bottombanner");
+        if(cc.sys.localStorage.getItem(401)==0){
+            sdkbox.PluginAdMob.init();
+            sdkbox.PluginAdMob.cache("bottombanner");
+            sdkbox.PluginAdMob.cache("gameover");
+            sdkbox.PluginAdMob.cache("topbanner");
+            sdkbox.PluginAdMob.show("bottombanner");
+        }
+        //
+        //iap
+        sdkbox.IAP.init();
+        sdkbox.IAP.setListener({
+            onRestored : function (product) {
+                //Purchase restored
+                cc.log("Restored: " + product.name);
+                cc.sys.localStorage.setItem(401,1);
+            }
+        });
+        if(cc.sys.localStorage.getItem(401)==0){
+            sdkbox.IAP.restore();
+        }
         //
 		this.startLabel = new cc.LabelTTF("Play", res.font, this.winsize.height/4);
         this.startLabel.setColor(cc.color(0,0,0));//black color
