@@ -91,8 +91,8 @@ var settingsLayer = cc.Layer.extend({
                 cc.log("Purchase successful: " + product.name);
                 cc.sys.localStorage.setItem(401,1);
                 sdkbox.PluginAdMob.hide("bottombanner");
-                this.voteFalseMenuAds.visible = true;
-                this.voteTrueMenuAds.visible = false;
+                this.voteFalseMenuAds.visible = false;
+                this.voteTrueMenuAds.visible = true;
             },
             onFailure : function (product, msg) {
                 //Purchase failed
