@@ -271,13 +271,15 @@ var gameLayer = cc.Layer.extend({
                 if (gameLayer_copy.getNumberOfRunningActions() === 0) {
                     this.x = corX;
                     this.y = corY;
+                    return true;
                 }
                 //else return false;
-                return true; //important otherwise onTouchEnded won't be executed
+                return false; //important otherwise onTouchEnded won't be executed
             },
             onTouchEnded: function (touch, event) {
                 var x2 = touch.getLocationX();
                 var y2 = touch.getLocationY();
+                cc.log(gameLayer_copy.getNumberOfRunningActions());
                 if (gameLayer_copy.getNumberOfRunningActions() === 0) {
                     var i = gameLayer_copy.calcI(this.y);
                     var j = gameLayer_copy.calcJ(this.x);
