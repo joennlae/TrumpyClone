@@ -124,7 +124,8 @@ var gameLayer = cc.Layer.extend({
     points: 0,
     goalStatusLabel1: null,
     goalStatusLabel2: null,
-                                correctionX: 0,
+    correctionX: 0,
+	movesTippSwitcher: false,
     ctor: function () {
         this._super();
         this.winsize = cc.director.getWinSize();
@@ -267,20 +268,26 @@ var gameLayer = cc.Layer.extend({
             y: null,
             onTouchBegan: function (touch, event) {
                 var corX = touch.getLocationX();
-                var corY = touch.getLocationY();
-                if (gameLayer_copy.getNumberOfRunningActions() === 0) {
-                    this.x = corX;
-                    this.y = corY;
-                    return true;
-                }
-                //else return false;
-                return false; //important otherwise onTouchEnded won't be executed
+				var corY = touch.getLocationY();
+					this.x = corX;
+					this.y = corY;
+					return true; //important otherwise onTouchEnded won't be executed
             },
             onTouchEnded: function (touch, event) {
                 var x2 = touch.getLocationX();
                 var y2 = touch.getLocationY();
-                cc.log(gameLayer_copy.getNumberOfRunningActions());
-                if (gameLayer_copy.getNumberOfRunningActions() === 0) {
+				var totActions = 0;
+				for (var k = 0; k < gameLayer_copy.levelShape.length; k++) {
+                    for (var n = 0; n < gameLayer_copy.levelShape[0].length; n++) {
+						if (gameLayer_copy.levelShape[k][n] != 0 && gameLayer_copy.levelShape[k][n] != 501) {
+							var actions = gameLayer_copy.gameNode.getChildByTag(100 * (k) + n).getNumberOfRunningActions();
+							totActions += actions;
+						}
+					}
+				}
+				cc.log(totActions);
+				cc.log(gameLayer_copy.movesTippSwitcher);
+				if(gameLayer_copy.movesTippSwitcher && totActions == 2 || !gameLayer_copy.movesTippSwitcher && totActions == 0){
                     var i = gameLayer_copy.calcI(this.y);
                     var j = gameLayer_copy.calcJ(this.x);
                     if (i < 10 && j < 10) { //valid start field
@@ -289,11 +296,13 @@ var gameLayer = cc.Layer.extend({
                         var moveType = gameLayer_copy.getMoveType(this.x, x2, this.y, y2);
                         //cc.log("detected swipe: Movetype= " + moveType + "  block  :" + i + "," + j);
                         if (gameLayer_copy.moveAllowed(i, j, moveType) && !gameLayer_copy.anim) {
+							gameLayer_copy.afterMovesTipp();
                             gameLayer_copy.lastMoveStamp = new Date().getTime();
                             for (var k = 0; k < gameLayer_copy.levelShape.length; k++) {
                                 for (var n = 0; n < gameLayer_copy.levelShape[0].length; n++) {
                                     if (gameLayer_copy.levelShape[k][n] != 0 && gameLayer_copy.levelShape[k][n] != 501) {
                                         gameLayer_copy.gameNode.getChildByTag(100 * (k) + n).stopAllActions();
+                                        gameLayer_copy.gameNode.getChildByTag(100 * (k) + n).scale = gameLayer_copy.sizeOfIcons;
                                     }
                                 }
                             }
@@ -317,8 +326,11 @@ var gameLayer = cc.Layer.extend({
                                 else {
                                     spritemove1.scale = gameLayer_copy.sizeOfIcons;
                                     spritemove2.scale = gameLayer_copy.sizeOfIcons;
-                                    spritemove1.runAction(cc.sequence(gameLayer_copy.up.clone(), gameLayer_copy.down.clone()));
-                                    spritemove2.runAction(cc.sequence(gameLayer_copy.down.clone(), gameLayer_copy.up.clone()));
+                                                cc.log(spritemove2.getNumberOfRunningActions());
+                                    if(spritemove1.getNumberOfRunningActions()== 0 && spritemove2.getNumberOfRunningActions()==0){
+                                                spritemove1.runAction(cc.sequence(gameLayer_copy.up.clone(), gameLayer_copy.down.clone()));
+                                                spritemove2.runAction(cc.sequence(gameLayer_copy.down.clone(), gameLayer_copy.up.clone()));
+                                    }
                                     gameLayer_copy.audio(400+Math.floor(Math.random()*soundsWrongMoves));
                                 }
                             }
@@ -341,8 +353,11 @@ var gameLayer = cc.Layer.extend({
                                 else {
                                     spritemove1.scale = gameLayer_copy.sizeOfIcons;
                                     spritemove2.scale = gameLayer_copy.sizeOfIcons;
-                                    spritemove1.runAction(cc.sequence(gameLayer_copy.right.clone(), gameLayer_copy.left.clone()));
-                                    spritemove2.runAction(cc.sequence(gameLayer_copy.left.clone(), gameLayer_copy.right.clone()));
+                                                cc.log(spritemove2.getNumberOfRunningActions());
+                                    if(spritemove1.getNumberOfRunningActions()== 0 && spritemove2.getNumberOfRunningActions()==0){
+                                                spritemove1.runAction(cc.sequence(gameLayer_copy.right.clone(), gameLayer_copy.left.clone()));
+                                                spritemove2.runAction(cc.sequence(gameLayer_copy.left.clone(), gameLayer_copy.right.clone()));
+                                    }
                                     gameLayer_copy.audio(400+Math.floor(Math.random()*soundsWrongMoves));
                                 }
                             }
@@ -365,8 +380,11 @@ var gameLayer = cc.Layer.extend({
                                 else {
                                     spritemove1.scale = gameLayer_copy.sizeOfIcons;
                                     spritemove2.scale = gameLayer_copy.sizeOfIcons;
-                                    spritemove1.runAction(cc.sequence(gameLayer_copy.down.clone(), gameLayer_copy.up.clone()));
-                                    spritemove2.runAction(cc.sequence(gameLayer_copy.up.clone(), gameLayer_copy.down.clone()));
+                                                cc.log(spritemove2.getNumberOfRunningActions());
+                                    if(spritemove1.getNumberOfRunningActions()== 0 && spritemove2.getNumberOfRunningActions()==0){
+                                                spritemove1.runAction(cc.sequence(gameLayer_copy.down.clone(), gameLayer_copy.up.clone()));
+                                                spritemove2.runAction(cc.sequence(gameLayer_copy.up.clone(), gameLayer_copy.down.clone()));
+                                    }
                                     gameLayer_copy.audio(400+Math.floor(Math.random()*soundsWrongMoves));
                                 }
                             }
@@ -389,14 +407,17 @@ var gameLayer = cc.Layer.extend({
                                 else {
                                     spritemove1.scale = gameLayer_copy.sizeOfIcons;
                                     spritemove2.scale = gameLayer_copy.sizeOfIcons;
-                                    spritemove1.runAction(cc.sequence(gameLayer_copy.left.clone(), gameLayer_copy.right.clone()));
-                                    spritemove2.runAction(cc.sequence(gameLayer_copy.right.clone(), gameLayer_copy.left.clone()));
+                                                cc.log(spritemove2.getNumberOfRunningActions());
+                                    if(spritemove1.getNumberOfRunningActions()== 0 && spritemove2.getNumberOfRunningActions()==0){
+                                                spritemove1.runAction(cc.sequence(gameLayer_copy.left.clone(), gameLayer_copy.right.clone()));
+                                                spritemove2.runAction(cc.sequence(gameLayer_copy.right.clone(), gameLayer_copy.left.clone()));
+                                    }
                                     gameLayer_copy.audio(400+Math.floor(Math.random()*soundsWrongMoves));
                                 }
                             }
                         }
                     }
-                }
+				}
             }
         });
         cc.eventManager.addListener(listener1, this);
@@ -561,6 +582,9 @@ var gameLayer = cc.Layer.extend({
         }
         cc.director.getScheduler().scheduleCallbackForTarget(this, ((function () { return function () { gameLayer_copy.sideDrop() } })()), 3, 0, 0, false);
     },
+	afterMovesTipp: function() {
+		this.movesTippSwitcher = false;
+	},
     checkForMovesTipp: function () {
         var moves = this.possibleMoves();
         var now = new Date().getTime();
@@ -570,6 +594,8 @@ var gameLayer = cc.Layer.extend({
             cc.log("no moves possible");
         }
         else if ((now - this.lastMoveStamp) / 1000 > 20) { //blink after nach 10 sec
+			this.movesTippSwitcher = true;
+			cc.director.getScheduler().scheduleCallbackForTarget(this, ((function () { return function () { gameLayer_copy.afterMovesTipp() } })()), 5 + 0.01, 0, 0, false);
             var random = Math.floor(Math.random() * moves.length);
             if (moves[random].m == 1) {
                 this.gameNode.getChildByTag(100 * moves[random].i + moves[random].j).runAction(cc.sequence(new cc.ScaleBy(0.5, 1.25), new cc.ScaleBy(0.5, 1.25).reverse()).repeat(5));
@@ -1110,14 +1136,14 @@ var gameLayer = cc.Layer.extend({
         return i;
     },
     calcJ: function (x) {
-                                cc.log(x);
+                                //cc.log(x);
         var j = ((x - 27 - this.correctionX) / this.sizeOfSprite);
         if (j > 0 && j < this.thingsPerRow) {
             j = Math.floor(j);
         }
         else j = 404;
-                                cc.log(j);
-                                cc.log(((x - 27 - this.correctionX) / this.sizeOfSprite));
+                                //cc.log(j);
+                                //cc.log(((x - 27 - this.correctionX) / this.sizeOfSprite));
         return j;
     },
     loadLvl: function () {
