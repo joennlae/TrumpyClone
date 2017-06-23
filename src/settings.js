@@ -84,6 +84,7 @@ var settingsLayer = cc.Layer.extend({
         this.messageAdsLabel.setAnchorPoint(0.5,0.5);
         this.messageAdsLabel.setPosition(cc.p(this.winsize.width/2,this.winsize.height/6*2));
         this.addChild(this.messageAdsLabel);
+        sdkbox.IAP.init();
         //ads 
         sdkbox.IAP.setListener({
             onSuccess : function (product) {
@@ -103,9 +104,34 @@ var settingsLayer = cc.Layer.extend({
             onCanceled : function (product) {
                 //Purchase was canceled by user
                 cc.log("Purchase canceled: " + product.name);
+            },
+            onRestored : function (product) {
+                //Purchase restored
+                cc.log("Restored: " + product.name);
+                cc.sys.localStorage.setItem(401,1);
             }
         });
+        if(cc.sys.localStorage.getItem(401)==0){
+            sdkbox.IAP.restore();
+        }
         //
+        //restore label
+        this.restoreLabel = new cc.LabelTTF("Restore purchase", res.font, this.winsize.height / 40);
+        this.restoreLabel.setColor(cc.color(0, 0, 0));//black color
+        this.restoreLabelP = new cc.LabelTTF("Restore purchase", res.font, this.winsize.height / 40);
+        this.restoreLabelP.setColor(cc.color(0, 0, 150));
+
+        var restoreItemLabel = new cc.MenuItemSprite(
+            this.restoreLabel,
+            this.restoreLabelP,
+            this.onrestore, this);
+        restoreItemLabel.setAnchorPoint(0.5, 0.5);
+        var restoreMenu = new cc.Menu(restoreItemLabel);
+        restoreMenu.setPosition(cc.p(this.winsize.width/2, this.winsize.height/3));
+        this.addChild(restoreMenu, 5, 3);
+    },
+    onrestore: function (){
+        sdkbox.IAP.restore();
     },
     sound: function () {
         if (JSON.parse(cc.sys.localStorage.getItem(301)) == 1) {

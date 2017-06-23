@@ -39,18 +39,7 @@ var menuLayer = cc.Layer.extend({
         }
         //
         //iap
-        sdkbox.IAP.init();
-                                sdkbox.IAP.setDebug(true);
-        sdkbox.IAP.setListener({
-            onRestored : function (product) {
-                //Purchase restored
-                cc.log("Restored: " + product.name);
-                cc.sys.localStorage.setItem(401,1);
-            }
-        });
-        if(cc.sys.localStorage.getItem(401)==0){
-            sdkbox.IAP.restore();
-        }
+        
         //
 		this.startLabel = new cc.LabelTTF("Play", res.font, this.winsize.height/4);
         this.startLabel.setColor(cc.color(0,0,0));//black color
